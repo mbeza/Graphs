@@ -27,7 +27,7 @@ void GraphL::addEdge(Edge e, int pos)
 	{
 		for (int j=0; j<length-1; j++)
 		{
-			if(tab[pos][j].getW()>tab[pos][j+1].getW())
+			if(tab[pos][j].getW()>tab[pos][j+1].getW()) //sortowanie wagami
 			{
 				swap(tab[pos][j],tab[pos][j+1]);
 			}
@@ -95,6 +95,12 @@ bool GraphL::check(int s, int e)
 				return true;
 		}
 		return false;		
+}
+
+void GraphL::createEmpty(int v)
+{
+	tab = new vector<Edge> [v];
+	size=v;
 }
 
 

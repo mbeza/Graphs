@@ -12,6 +12,7 @@ int main()
 	GraphM graf;
 	graf.fill(false);
 	graf.show();
+	PrimsM(graf);
 	
 
 	GraphL graf2;
@@ -19,7 +20,9 @@ int main()
 	graf2.create(false);
 	graf2.show();
 	cout<<endl;
-	Prims(graf2);
+	PrimsL(graf2);
+	KruskalL(graf2);
+	
 	
 	
 	system("pause");

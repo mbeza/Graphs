@@ -20,8 +20,9 @@ class GraphL{
 		
 		GraphL();
 		void addNode();
-		void addEdge(Edge e, int);
+		void addEdge(Edge e, int pos);
 		void create(bool directed);
+		void createEmpty(int v);
 		void show();
 		bool check(int s, int e);
 };

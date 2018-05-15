@@ -70,3 +70,52 @@ void GraphM::show()
 	}
 	
 }
+
+void GraphM::showEdge(int edg)
+{
+	bool first=false, last=false;
+	
+	int vrtx=0;
+	int start,end;
+	
+	while(!(first && last))
+	{
+		if(direct)
+		{
+			if(Matrix[vrtx][edg]==1)
+			{
+				start=vrtx;
+				first=true;
+			}
+			if(Matrix[vrtx][edg]==-1)
+			{
+				end=vrtx;
+				last=true;
+			}
+			vrtx++;	
+		}
+		else
+		{
+			if(Matrix[vrtx][edg]==1 && !first)
+			{
+				start=vrtx;
+				first=true;
+				vrtx++;
+			}
+			if(Matrix[vrtx][edg]==1 && first)
+			{
+				end=vrtx;
+				last=true;
+			}
+			vrtx++;
+		}
+	}
+	
+	cout<<start<<"-"<<end<<" "<<Weight[edg];
+	
+
+}
+
+
+
+

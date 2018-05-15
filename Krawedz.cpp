@@ -17,7 +17,7 @@ Edge::Edge()
 
 void Edge::show()
 {
-	cout<<start<<" "<<end<<" "<<weight<<endl;
+	cout<<start<<"-"<<end<<" "<<weight<<endl;
 }
 int Edge::getW()
 {

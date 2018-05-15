@@ -9,10 +9,14 @@
 #include <queue>
 #include <list>
 #include "Kopiec.h"
+#include <stack>
 
 using namespace std;
 
-int Prims(GraphL & graf);
+void PrimsL(GraphL & graf);
+void PrimsM(GraphM & graf);
+void KruskalL(GraphL & graf);
+bool cycle(GraphL &graf, int v, int w, stack<int> &S, bool * visited);
 
 
 
