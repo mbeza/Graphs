@@ -4,6 +4,8 @@ GraphL::GraphL()
 {
 	tab = new vector<Edge> [1];
 	size=1;
+	edges=1;
+	direct=false;
 }
 
 void GraphL::addNode()
@@ -22,23 +24,13 @@ void GraphL::addNode()
 void GraphL::addEdge(Edge e, int pos)
 {
 	tab[pos].push_back(e);
-/*	int length = tab[pos].size();
-	for(int i=0; i<length-1; i++)
-	{
-		for (int j=0; j<length-1; j++)
-		{
-			if(tab[pos][j].getW()>tab[pos][j+1].getW()) //sortowanie wagami
-			{
-				swap(tab[pos][j],tab[pos][j+1]);
-			}
-		}
-	}*/
+	edges++;
 }
 
 void GraphL::create(bool directed)
 {
 	ifstream fin;
-	fin.open("dane.txt");
+	fin.open("dane2.txt");
 	fin>>edges>>size;
 	
 	direct = directed;
@@ -97,10 +89,12 @@ bool GraphL::check(int s, int e)
 		return false;		
 }
 
-void GraphL::createEmpty(int v)
+void GraphL::createEmpty(int v, bool directed)
 {
 	tab = new vector<Edge> [v];
 	size=v;
+	edges=1;
+	direct=directed;
 }
 
 

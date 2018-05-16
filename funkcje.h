@@ -10,13 +10,16 @@
 #include <list>
 #include "Kopiec.h"
 #include <stack>
+#include "KrawedzMacierz.h"
 
 using namespace std;
 
 void PrimsL(GraphL & graf);
 void PrimsM(GraphM & graf);
 void KruskalL(GraphL & graf);
-bool cycle(GraphL &graf, int v, int w, stack<int> &S, bool * visited);
+void KruskalM(GraphM & graf);
+bool cycle(GraphL &graf, int v, int w, stack<int> &S, bool * visited2);
+bool cycleM(GraphM &graf, int v, int w, stack <int> &S, bool * visited);
 
 
 

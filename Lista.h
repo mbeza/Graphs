@@ -22,7 +22,7 @@ class GraphL{
 		void addNode();
 		void addEdge(Edge e, int pos);
 		void create(bool directed);
-		void createEmpty(int v);
+		void createEmpty(int v, bool directed);
 		void show();
 		bool check(int s, int e);
 };

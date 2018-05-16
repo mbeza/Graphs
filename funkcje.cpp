@@ -1,5 +1,18 @@
 #include "funkcje.h"
 
+struct compareEdge
+{
+	bool operator ()( EdgM & e1, EdgM & e2 )
+    {
+        //kolejnoœæ - rosn¹co
+        if( e1.weight > e2.weight ) return true;
+       
+        if( e1.weight < e2.weight ) return false;
+       
+        return false;
+    }
+};
+
 
 void PrimsL(GraphL & graf)
 {
@@ -14,12 +27,11 @@ void PrimsL(GraphL & graf)
 		visited[i]=false;
 	}
 	
-	list <Edge> zwracane;		//lista na ktorej bedzie drzewo rozpinajace
+	GraphL wynikowy;
+	wynikowy.createEmpty(nodes,false);
 	
 	int iter=0;					//zaczynamy od wierzcholka o numerze 0
-	visited[iter] = true;		//oznaczamy go jako odwiedzony
-	
-	
+	visited[iter] = true;		//oznaczamy go jako odwiedzony	
 	
 	for(int i = 0; i<nodes-1; i++)	//petla do poruszania sie po wierzcholkach
 	{
@@ -41,21 +53,18 @@ void PrimsL(GraphL & graf)
 		}while(visited[k.end]);		//...tak dlugo, az napotkamy taka krawedz, ktorej koniec jest jeszcze nieodwiedzonym wierzocholkiem
 		
 		
-		zwracane.push_back(k);		//do drzewa rozpinajacego dodajemy krawedz
+		wynikowy.addEdge(k,k.start);
+		Edge l;
+		l.start=k.end;
+		l.end=k.start;
+		l.weight=k.weight;
+		wynikowy.addEdge(l,l.start);
 		visited[k.end]=true;		//wierzcholek na drugim koncu krawedzi oznaczamy jako odwiedzony
 		iter=k.end;					//i przechodzimy do niego kontynuujac petle
 	}
-	
-	
-	int sztuki= zwracane.size();	//pobieramy liczbe krawedzi drzewa rozpinajacego
-	for (int i=0; i<sztuki; i++)
-	{
-		Edge zwr=zwracane.front();	//sciagamy krawedzie z listy, powstaje drzewo rozpinajace
-		zwracane.pop_front();		//usuwamy ten element
-		cout<<zwr.start<<"-"<<zwr.end<<" ";	//i wyswietlamy
-	}
-	
-	
+
+	cout<<endl;
+	wynikowy.show();	
 }
 
 
@@ -71,7 +80,9 @@ void PrimsM(GraphM & graf)
 		visited[i]=false;		//uzupelniamy tablice odwiedzonych wierzcholkow wartosciami false
 	}
 	
-	list <Edge> zwracane;		//lista na ktorej bedzie drzewo rozpinajace
+	GraphM wynikowy;
+	wynikowy.createEmpty(nodes,false);
+	
 	
 	int iter=0;					//zaczynamy od wierzcholka o numerze 0
 	visited[iter] = true;		//oznaczamy go jako odwiedzony
@@ -116,44 +127,33 @@ void PrimsM(GraphM & graf)
 			k=priority.remove();			
 		}while(visited[k.end]);
 		
-		
-		zwracane.push_back(k);
+		wynikowy.addEdge(k.start,k.end,k.weight);
 		visited[k.end]=true;
 		iter=k.end;	
 	}
+
+	wynikowy.show();
 	
-	int sztuki= zwracane.size();
-	for (int i=0; i<sztuki; i++)
-	{
-		Edge zwr=zwracane.front();
-		zwracane.pop_front();
-		cout<<zwr.start<<"-"<<zwr.end<<" ";
-	}
 }
 
 
-bool cycle(GraphL &graf, int v, int w, stack<int> &S, bool * visited2)
+bool cycle(GraphL & graf, int v, int w, stack<int> &S, bool * visited2)
 {
-	cout<<"\nwywolanie\n";
 	int u;
 	visited2[w]=true;
 	int nbr=graf.tab[w].size();
 	while(nbr>0)
 	{
-		cout<<"\nwhile\n";
 		u=graf.tab[w][nbr-1].end;
 		if (!S.empty())
 		{
 			if(u==S.top())
 			{
-				cout<<"\nif\n";
 				nbr--;
 				continue;
 			}		
 		}
-		cout<<"\nprzed push\n";
 		S.push(w);
-		cout<<"\npush\n";
 		if(u==v) return true;
 		if(visited2[u]==false && cycle(graf,v,u,S,visited2)==true) return true;
 		S.pop();
@@ -162,10 +162,9 @@ bool cycle(GraphL &graf, int v, int w, stack<int> &S, bool * visited2)
 	return false;	
 }
 
-void KruskalL(GraphL &graf)
+void KruskalL(GraphL & graf)
 {
 	Heap lista;
-	vector <Edge> zwracane;
 	int nodes=graf.size;
 	bool visited[nodes];
 	
@@ -185,7 +184,7 @@ void KruskalL(GraphL &graf)
 	}
 	
 	GraphL tree;
-	tree.createEmpty(nodes);
+	tree.createEmpty(nodes,false);
 	stack <int> stosik;
 		
 	
@@ -199,33 +198,129 @@ void KruskalL(GraphL &graf)
 			visited[i]=false;
 		
 		Edge candidate = lista.remove();
-		candidate.show();
-		if(tree.edges==0)
+		//candidate.show();
+/*		if(tree.edges==0)
 		{
 			tree.addEdge(candidate,candidate.start);
-			cout<<" -dodane\n";
 			continue;
-		}
-		else
+		}*/
+		//else
 		{
 			tree.addEdge(candidate,candidate.start);
-			cout<<" -dodane ";
 			if(cycle(tree,candidate.start,candidate.start,stos,visited))
 			{
-				tree.tab[candidate.start].pop_back();
-				cout<<" i usuniete\n";	
+				tree.tab[candidate.start].pop_back();	
 			}
 		}
 		
 		
 	}
-	
 	tree.show();
 	
-
-	
-	
 }
+
+void KruskalM(GraphM & graf)
+{
+
+	int nodes=graf.nodes;
+	int lines=graf.lines;
+	bool visited[nodes];
+	stack <int> stosik;
+	
+	for(int i=0; i<nodes; i++)
+		visited[i]=false;
+	
+	GraphM wynikowy;
+	wynikowy.createEmpty(nodes,false);
+	
+	priority_queue < EdgM, vector < EdgM >, compareEdge > lista;
+	
+	for(int i=0; i<lines; i++)
+	{
+		EdgM krawedz;
+		krawedz.pos=i;
+		krawedz.weight=graf.Weight[i];
+		lista.push(krawedz);	
+	}
+	
+	int newedge=0;
+	while(!lista.empty())
+	{
+		stack <int> stos;
+		for (int i=0; i<nodes; i++)
+			visited[i]=false;
+		EdgM kraw;
+		kraw=lista.top();
+		lista.pop();
+		wynikowy.addEdge(0,0,0);
+		for(int i=0; i<nodes; i++)
+		{
+			wynikowy.Matrix[i][newedge]=graf.Matrix[i][kraw.pos];
+		}
+		wynikowy.Weight[newedge]=kraw.weight;
+		
+		if(cycleM(wynikowy,wynikowy.findStartEdge(newedge),wynikowy.findStartEdge(newedge),stosik,visited))
+		{
+			wynikowy.deleteEdge();
+		}	
+		else newedge++;
+	}
+	
+	wynikowy.show();
+
+}
+
+
+
+bool cycleM(GraphM &graf, int v, int w, stack <int> &S, bool * visited2)
+{
+	int u;
+	visited2[w]=true;
+	stack <int> sasiedzi;
+	for(int i=0; i<graf.lines; i++)
+	{
+		if(graf.Matrix[w][i]==1)
+		{
+			sasiedzi.push(graf.findEndEdge(i,w));		
+		}
+	}
+	int nbr=sasiedzi.size();	
+		
+		
+	while(nbr>0)
+	{
+		u=sasiedzi.top();
+		sasiedzi.pop();
+		if (!S.empty())
+		{
+			if(u==S.top())
+			{
+				nbr--;
+				continue;
+			}		
+		}
+		S.push(w);
+		if(u==v) return true;
+		if(visited2[u]==false && cycleM(graf,v,u,S,visited2)==true) return true;
+		S.pop();
+		nbr--;
+	}
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
