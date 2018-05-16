@@ -15,7 +15,7 @@ GraphM::GraphM()
 void GraphM::fill(bool directed)
 {
 	ifstream fin;
-	fin.open("dane2.txt");
+	fin.open("dane.txt");
 	fin>>lines>>nodes;
 	
 	direct = directed;

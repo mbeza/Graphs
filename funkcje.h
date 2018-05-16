@@ -1,5 +1,5 @@
-#ifndef FUNKCJEGRAFOWE_H
-#define FUNKCJEGRAFOWE_H
+#ifndef FUNKCJEMST_H
+#define FUNKCJEMST_H
 
 #include "Macierz.h"
 #include "Lista.h"

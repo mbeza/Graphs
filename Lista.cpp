@@ -8,6 +8,14 @@ GraphL::GraphL()
 	direct=false;
 }
 
+GraphL::GraphL(bool direction)
+{
+	tab = new vector<Edge> [1];
+	size=1;
+	edges=1;
+	direct=direction;
+}
+
 void GraphL::addNode()
 {
 	++size;
@@ -30,15 +38,16 @@ void GraphL::addEdge(Edge e, int pos)
 void GraphL::create(bool directed)
 {
 	ifstream fin;
-	fin.open("dane2.txt");
-	fin>>edges>>size;
+	int edges2;
+	fin.open("dane.txt");
+	fin>>edges2>>size;
 	
 	direct = directed;
 	tab = new vector<Edge> [size];
 	
 	int start;
 	
-	for(int i=0; i<edges; i++)
+	for(int i=0; i<edges2; i++)
 	{
 		Edge k,l;
 		if(directed)
@@ -46,6 +55,7 @@ void GraphL::create(bool directed)
 			fin>>k.start>>k.end>>k.weight;
 			if(!check(k.start,k.end))
 				addEdge(k,k.start);
+			cout<<"dodano"<<k.start<<"-"<<k.end<<endl;
 		}
 		else
 		{
@@ -60,7 +70,9 @@ void GraphL::create(bool directed)
 				addEdge(l,l.start);
 			
 		}
-	}	
+		
+	}
+	edges=edges2;	
 }
 
 void GraphL::show()

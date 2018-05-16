@@ -19,6 +19,7 @@ class GraphL{
 		bool direct;
 		
 		GraphL();
+		GraphL(bool direction);
 		void addNode();
 		void addEdge(Edge e, int pos);
 		void create(bool directed);

@@ -4,11 +4,13 @@
 #include "Krawedz.h"
 #include "Lista.h"
 #include "funkcje.h"
+#include "funkcjesciezka.h"
+
 using namespace std;
 
 int main()
 {
-	
+/*	
 	GraphM graf;
 	graf.fill(false);
 	graf.show();
@@ -25,6 +27,18 @@ int main()
 	PrimsL(graf2);
 	cout<<"\nALGORYTM KRUSKALA\n";
 	KruskalL(graf2);
+*/	
+	GraphL graf3(true);
+	graf3.show();
+	graf3.create(true);
+	cout<<endl;
+	graf3.show();
+	cout<<endl;
+	DijkstryL(graf3,4,5);
+	
+	int k;
+	
+	cout<<endl<<sizeof(k);
 	
 	
 	

@@ -13,7 +13,6 @@ struct compareEdge
     }
 };
 
-
 void PrimsL(GraphL & graf)
 {
 	
@@ -66,7 +65,6 @@ void PrimsL(GraphL & graf)
 	cout<<endl;
 	wynikowy.show();	
 }
-
 
 void PrimsM(GraphM & graf)
 {
@@ -135,7 +133,6 @@ void PrimsM(GraphM & graf)
 	wynikowy.show();
 	
 }
-
 
 bool cycle(GraphL & graf, int v, int w, stack<int> &S, bool * visited2)
 {
@@ -269,8 +266,6 @@ void KruskalM(GraphM & graf)
 	wynikowy.show();
 
 }
-
-
 
 bool cycleM(GraphM &graf, int v, int w, stack <int> &S, bool * visited2)
 {
