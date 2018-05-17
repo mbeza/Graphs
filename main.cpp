@@ -29,18 +29,20 @@ int main()
 	KruskalL(graf2);
 */	
 	GraphL graf3(true);
-	graf3.show();
+//	graf3.show();
 	graf3.create(true);
-	cout<<endl;
+
 	graf3.show();
 	cout<<endl;
-	DijkstryL(graf3,4,5);
-	
-	int k;
-	
-	cout<<endl<<sizeof(k);
+	DijkstryL(graf3,6,0);
+	cout<<endl;
+	graf3.show();
 	
 	
+	GraphM graf4;
+	graf4.fill(true);
+	graf4.show();
+	DijkstryM(graf4,6,5);
 	
 	system("pause");
 	return 0;

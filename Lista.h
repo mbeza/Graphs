@@ -20,6 +20,7 @@ class GraphL{
 		
 		GraphL();
 		GraphL(bool direction);
+		GraphL(GraphL & ref);
 		void addNode();
 		void addEdge(Edge e, int pos);
 		void create(bool directed);

@@ -12,8 +12,10 @@
 #include <stack>
 #include "KrawedzMacierz.h"
 #include "Wierzcholek.h"
+#include <conio.h>
 using namespace std;
 
 void DijkstryL(GraphL & graf, int s, int e);
+void DijkstryM(GraphM & graf, int s, int e);
 
 #endif

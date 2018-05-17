@@ -1,7 +1,7 @@
 #ifndef WIERZCHOLEK_H
 #define WIERZCHOLEK_H
 
-struct VertexL{
+struct Vertex{
 	int number;
 	int prev;
 	int cost;	

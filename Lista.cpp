@@ -16,6 +16,23 @@ GraphL::GraphL(bool direction)
 	direct=direction;
 }
 
+GraphL::GraphL(GraphL & ref)
+{
+	tab = new vector <Edge> [ref.size];
+	size=ref.size;
+	direct=ref.direct;
+	
+	for(int i=0; i<size; i++)
+	{
+		int ile= ref.tab[i].size();
+		for(int j=0; j<ile; j++)
+		{
+			addEdge(ref.tab[i][j],i);
+		}
+	}
+	edges=ref.edges;
+}
+
 void GraphL::addNode()
 {
 	++size;
@@ -55,7 +72,6 @@ void GraphL::create(bool directed)
 			fin>>k.start>>k.end>>k.weight;
 			if(!check(k.start,k.end))
 				addEdge(k,k.start);
-			cout<<"dodano"<<k.start<<"-"<<k.end<<endl;
 		}
 		else
 		{
