@@ -17,12 +17,12 @@ public:
 	bool direct;
 	
 	GraphM();
-	void fill(bool directed); //false - nieskierowany true - skierowany
+	void create(bool directed, string filename); //false - nieskierowany true - skierowany
 	void show();
 	void showEdge(int edg);
 	void addEdge(int s, int e, int w);
 	void addNode();
-	void createEmpty(int v,bool directed);
+	void createEmpty(int v, bool directed);
 	int findStartEdge(int edg);
 	int findEndEdge(int edg, int strt=0);
 	void deleteEdge();

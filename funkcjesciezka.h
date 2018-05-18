@@ -17,5 +17,7 @@ using namespace std;
 
 void DijkstryL(GraphL & graf, int s, int e);
 void DijkstryM(GraphM & graf, int s, int e);
+void FordL(GraphL & graf, int s, int e);
+void FordM(GraphM & graf, int s, int e);
 
 #endif

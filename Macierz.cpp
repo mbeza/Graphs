@@ -12,10 +12,10 @@ GraphM::GraphM()
 	direct = false;
 }
 
-void GraphM::fill(bool directed)
+void GraphM::create(bool directed, string filename)
 {
 	ifstream fin;
-	fin.open("dane.txt");
+	fin.open(filename.c_str());
 	fin>>lines>>nodes;
 	
 	direct = directed;
@@ -45,6 +45,8 @@ void GraphM::fill(bool directed)
 			Matrix[end][i]=1;
 		}
 	}
+	
+	fin.close();
 }
 
 void GraphM::show()

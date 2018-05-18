@@ -52,12 +52,13 @@ void GraphL::addEdge(Edge e, int pos)
 	edges++;
 }
 
-void GraphL::create(bool directed)
+void GraphL::create(bool directed, string filename)
 {
 	ifstream fin;
 	int edges2;
-	fin.open("dane.txt");
+	fin.open(filename.c_str());
 	fin>>edges2>>size;
+	
 	
 	direct = directed;
 	tab = new vector<Edge> [size];
