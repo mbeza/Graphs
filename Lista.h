@@ -7,6 +7,7 @@
 #include <vector>
 #include "Krawedz.h"
 #include <fstream>
+#include <stack>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ class GraphL{
 		int size;
 		int edges;
 		bool direct;
+		bool connectivity;
 		
 		GraphL();
 		GraphL(bool direction);
@@ -27,6 +29,7 @@ class GraphL{
 		void createEmpty(int v, bool directed);
 		void show();
 		bool check(int s, int e);
+		void checkConnectivity();
 };
 
 

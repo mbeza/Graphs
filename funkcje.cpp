@@ -206,7 +206,8 @@ void KruskalL(GraphL & graf)
 			tree.addEdge(candidate,candidate.start);
 			if(cycle(tree,candidate.start,candidate.start,stos,visited))
 			{
-				tree.tab[candidate.start].pop_back();	
+				tree.tab[candidate.start].pop_back();
+				tree.tab[candidate.end].pop_back();	
 			}
 		}
 		
@@ -229,7 +230,7 @@ void KruskalM(GraphM & graf)
 	
 	GraphM wynikowy;
 	wynikowy.createEmpty(nodes,false);
-	
+
 	priority_queue < EdgM, vector < EdgM >, compareEdge > lista;
 	
 	for(int i=0; i<lines; i++)
@@ -241,26 +242,30 @@ void KruskalM(GraphM & graf)
 	}
 	
 	int newedge=0;
-	while(!lista.empty())
+	while(!lista.empty())	//dopoki na liscie sa elementy
 	{
-		stack <int> stos;
-		for (int i=0; i<nodes; i++)
+		//stack <int> stos;
+		for (int i=0; i<nodes; i++)	//oznacz wszystkie wierzcholki jako nieodwiedzone - przyda sie w rekurencyjnej funkcji sprawdzania czy jest cykl
 			visited[i]=false;
-		EdgM kraw;
-		kraw=lista.top();
-		lista.pop();
-		wynikowy.addEdge(0,0,0);
+		EdgM kraw;					//stworz pomocnicza zmienna
+		kraw=lista.top();			//sciagnij z kolejki krawedz o najmniejszej wadze
+		lista.pop();				//usun go z kolejki
+		int nrkraw=kraw.pos;			//pobierz dane ktora to krawedz w zrodlowym grafie
+		int poczkraw=graf.findStartEdge(kraw.pos);		//sprawdz gdzie sie zaczyna
+		int konckraw=graf.findEndEdge(kraw.pos,poczkraw);	//sprawdz gdzie sie konczy
+		wynikowy.addEdge(poczkraw,konckraw,kraw.weight);	//dodaj ja do grafu wynikowego
+		/*
 		for(int i=0; i<nodes; i++)
 		{
 			wynikowy.Matrix[i][newedge]=graf.Matrix[i][kraw.pos];
 		}
-		wynikowy.Weight[newedge]=kraw.weight;
+		wynikowy.Weight[newedge]=kraw.weight;*/
 		
-		if(cycleM(wynikowy,wynikowy.findStartEdge(newedge),wynikowy.findStartEdge(newedge),stosik,visited))
+		if(cycleM(wynikowy,wynikowy.findStartEdge(newedge),wynikowy.findStartEdge(newedge),stosik,visited)) //jesli dodana krawedz spowodowala ze powstal cykl
 		{
-			wynikowy.deleteEdge();
+			wynikowy.deleteEdge();		//to usun ja z grafu wyniokwego
 		}	
-		else newedge++;
+		else newedge++;		//a jesli nie, to zostaw i zwieksz licznik, ktory pozwoli na dodanie kolejnych 
 	}
 	
 	wynikowy.show();
